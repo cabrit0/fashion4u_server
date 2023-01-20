@@ -19,6 +19,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/v1/users", require("./routes/userRoutes"));
+app.use("/api/v1/posts", require("./routes/postRoutes"));
+app.use("/api/v1/comments", require("./routes/commentRoutes"));
+app.use("/api/v1/follow", require("./routes/followRoutes"));
+app.use("/api/v1/likes", require("./routes/likeRoutes"));
 
 app.use("/", express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
