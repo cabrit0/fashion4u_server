@@ -55,7 +55,7 @@ const updatePost = asyncHandler(async (req, res) => {
   if (post.user.toString() !== req.user.id) {
     return res.status(401).json({ success: false, error: "Not authorized" });
   }
-  console.log(req.body)
+  //console.log(req.body)
 
   const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
     new: true,

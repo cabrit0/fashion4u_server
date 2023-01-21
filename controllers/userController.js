@@ -20,13 +20,14 @@ const register = asyncHandler(async (req, res) => {
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
-    // Create new user
+
     user = new User({ name, email, password });
-    // Hash password
+
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
-    // Save user to db
+
     await user.save();
+
     // Create and sign JWT
     const payload = { user: { id: user.id } };
     jwt.sign(
@@ -60,7 +61,7 @@ const login = asyncHandler(async (req, res) => {
     if (!user) {
       return res.status(400).json({ msg: "Invalid email or password" });
     }
-    // Compare password
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Invalid email or password" });
@@ -155,15 +156,15 @@ const changePassword = asyncHandler(async (req, res) => {
       return res.status(404).json({ msg: "User not found" });
     }
     console.log(req.body, user);
-    // Compare old password
+
     const isMatch = await bcrypt.compare(req.body.oldPassword, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Invalid old password" });
     }
-    // Hash new password
+
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(req.body.newPassword, salt);
-    // Save new password
+
     await user.save();
     res.json({ msg: `Password of ${user.name} changed successfully` });
   } catch (err) {

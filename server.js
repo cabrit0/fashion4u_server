@@ -23,6 +23,9 @@ app.use("/api/v1/posts", require("./routes/postRoutes"));
 app.use("/api/v1/comments", require("./routes/commentRoutes"));
 app.use("/api/v1/follow", require("./routes/followRoutes"));
 app.use("/api/v1/likes", require("./routes/likeRoutes"));
+app.use("/api/v1/brands", require("./routes/brandRoutes"));
+app.use("/api/v1/store", require("./routes/storeRoutes"));
+app.use("/api/v1/clothing", require("./routes/clothingRoutes"));
 
 app.use("/", express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
