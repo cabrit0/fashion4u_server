@@ -87,12 +87,13 @@ const login = asyncHandler(async (req, res) => {
 // @route   POST /api/users/avatar/upload
 // @Access  Private
 const uploadAvatar = asyncHandler(async (req, res) => {
-  const { avatarUrl } = req;
+  const  avatarUrl  = req.avatar;
   const user = await User.findByIdAndUpdate(
     req.user.id,
     { avatar: avatarUrl },
     { new: true }
   );
+  console.log(user);
   res.status(200).json({ success: true, data: user });
 });
 

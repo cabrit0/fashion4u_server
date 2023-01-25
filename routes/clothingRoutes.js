@@ -4,7 +4,7 @@ const {
   removeClothingFromStore,
 } = require("../controllers/clothingController");
 const verifyJWT = require("../middleware/verifyJWT");
-const uploadClothesPhotos = require("../middleware/uploadClothesPhoto");
+const uploadClothesPhotos = require("../middleware/uploadClothesPhoto"); // ver como fazer esta <<<<
 
 const router = express.Router();
 

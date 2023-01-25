@@ -28,16 +28,19 @@ function fileUploadAndFirebase(fieldName) {
       req.firebase = { app, storage };
       try {
         const file = req.file;
+        //console.log(file);
         const imageRef = ref(storage, file.originalname);
-        //console.log(imageRef);
         const metatype = {
           contentType: file.mimetype,
           name: file.originalname,
         };
         await uploadBytes(imageRef, file.buffer, metatype)
           .then(async (snapshot) => {
-            const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${imageRef._location.bucket}/o/${imageRef._location.path_}?alt=media`;
+            const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
+              imageRef._location.bucket
+            }/o/${encodeURIComponent(imageRef._location.path_)}?alt=media`;
             req.avatar = publicUrl;
+            //console.log(req.avatar);
             next();
           })
           .catch((error) => next(error));
