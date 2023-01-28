@@ -84,6 +84,8 @@ const deletePost = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: {} });
 });
 
+
+
 module.exports = {
   createPost,
   getPost,
