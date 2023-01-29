@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Comment = require("../models/Comment");
+const Post = require("../models/Post");
 
 // @desc    Create a comment
 // @route   POST /api/comments
@@ -15,6 +16,17 @@ const createComment = asyncHandler(async (req, res) => {
     user,
   });
 
+  const postFound = await Post.findById(req.body.postId);
+
+  if (!postFound) {
+    return res.status(404).json({ success: false, error: "Post not found" });
+  }
+  console.log(postFound);
+
+  postFound.comments.unshift({ comment: comment });
+
+  await postFound.save();
+
   res.status(201).json({ success: true, data: comment });
 });
 
@@ -22,10 +34,11 @@ const createComment = asyncHandler(async (req, res) => {
 // @route   GET /api/comments/:postId
 // @Access  Public
 const getComments = asyncHandler(async (req, res) => {
-  const comments = await Comment
-    .find({ post: req.body.postId })
-    .populate("user", ["name"]);
-    console.log(req.body)
+  const comments = await Comment.find({ post: req.body.postId }).populate(
+    "user",
+    ["name"]
+  );
+  console.log(req.body);
 
   res.status(200).json({ success: true, data: comments });
 });
@@ -34,9 +47,9 @@ const getComments = asyncHandler(async (req, res) => {
 // @route   GET /api/comments/:id
 // @Access  Public
 const getComment = asyncHandler(async (req, res) => {
-  const comment = await Comment
-    .findById(req.params.id)
-    .populate("user", ["name"]);
+  const comment = await Comment.findById(req.params.id).populate("user", [
+    "name",
+  ]);
 
   if (!comment) {
     return res.status(404).json({ success: false, error: "Comment not found" });
