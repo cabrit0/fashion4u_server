@@ -6,9 +6,11 @@ const Post = require("../models/Post");
 // @route   POST /api/comments
 // @Access  Private
 const createComment = asyncHandler(async (req, res) => {
-  const { text } = req.body;
-  const post = req.body.postId;
+  const text = req.body.body.text;
+  const post = req.body.body.postId;
   const user = req.user.id;
+
+  console.log(text, post, user);
 
   const comment = await Comment.create({
     text,
@@ -16,7 +18,7 @@ const createComment = asyncHandler(async (req, res) => {
     user,
   });
 
-  const postFound = await Post.findById(req.body.postId);
+  const postFound = await Post.findById(post);
 
   if (!postFound) {
     return res.status(404).json({ success: false, error: "Post not found" });

@@ -3,9 +3,7 @@ const router = express.Router();
 
 const {
   likeComment,
-  unlikeComment,
   likePost,
-  unlikePost,
 } = require("../controllers/likeController");
 const verifyJWT = require("../middleware/verifyJWT");
 

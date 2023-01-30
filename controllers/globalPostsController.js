@@ -14,7 +14,7 @@ const globalAllPosts = asyncHandler(async (req, res) => {
       ],
     })
     .populate("user", ["name", "avatar"]);
-  console.log(posts);
+  //console.log(posts);
   res.status(200).json({ success: true, data: posts });
 });
 
