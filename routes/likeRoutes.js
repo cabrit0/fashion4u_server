@@ -9,14 +9,8 @@ const {
 } = require("../controllers/likeController");
 const verifyJWT = require("../middleware/verifyJWT");
 
-router
-  .route("/like/posts")
-  .put(verifyJWT, likePost)
-  .put(verifyJWT, unlikePost);
+router.route("/like/posts").put(verifyJWT, likePost);
 
-router
-  .route("/like/comments")
-  .put(verifyJWT, likeComment)
-  .put(verifyJWT, unlikeComment);
+router.route("/like/comments").put(verifyJWT, likeComment);
 
 module.exports = router;
