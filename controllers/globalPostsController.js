@@ -13,7 +13,7 @@ const globalAllPosts = asyncHandler(async (req, res) => {
         },
       ],
     })
-    .populate("user", ["name", "avatar"]);
+    .populate("user", ["name", "avatar", "followers", "following"]);
   //console.log(posts);
   res.status(200).json({ success: true, data: posts });
 });
